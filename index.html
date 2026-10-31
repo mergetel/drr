@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DRR · Decennial Recurring Revenue</title>
+<meta name="description" content="MRR is so last month. ARR is the new hotness. DRR counts ten years of revenue you haven't made yet. Make your card, stamped MADE UP, because it is.">
+<meta property="og:title" content="DRR · Decennial Recurring Revenue">
+<meta property="og:description" content="MRR is so last month. ARR is the new hotness. DRR is the future.">
+<meta property="og:image" content="https://mergetel.github.io/drr/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header id="nav"></header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">DRR GENERATOR</p>
+    <h1><s>MRR</s> is so last month.<br><s>ARR</s> is the new hotness.<br><span class="grad">DRR is the future.</span></h1>
+    <p class="lede">Decennial Recurring Revenue counts ten years of revenue you haven't made yet, so the number is much bigger. Answer a few questions about your company and post the card.</p>
+  </section>
+
+  <section id="make" aria-label="Your DRR card">
+    <div class="stage">
+      <canvas id="card" width="1200" height="630" role="img" aria-label="A made-up DRR card"></canvas>
+    </div>
+
+    <form class="controls" id="form" aria-label="Your inputs" onsubmit="return false">
+      <label class="field wide"><b>Company name</b>
+        <input type="text" id="n" maxlength="24" autocomplete="off" spellcheck="false" placeholder="Stealth Mode Inc.">
+      </label>
+      <label class="field wide"><b>Actual revenue last month, in dollars</b>
+        <input type="number" id="r" min="0" max="999999999" step="1" inputmode="numeric" placeholder="Optional">
+        <small>Not used in the calculation. It goes on the card as "not material".</small>
+      </label>
+
+      <label class="field wide"><b>Vibes: <span id="v-out"></span></b>
+        <input type="range" id="v" min="0" max="100" step="1">
+      </label>
+      <label class="field wide"><b>Hours slept last night: <span id="h-out"></span></b>
+        <input type="range" id="h" min="0" max="12" step="1">
+        <small>Every hour under eight doubles DRR. Every hour over halves it.</small>
+      </label>
+
+      <label class="field wide"><b>Times you said "agentic" this week</b>
+        <input type="number" id="a" min="0" max="500" step="1" inputmode="numeric">
+      </label>
+      <label class="field wide"><b>Pivots so far</b>
+        <input type="number" id="p" min="0" max="30" step="1" inputmode="numeric">
+      </label>
+
+      <fieldset class="full">
+        <legend>Tick everything that's true</legend>
+        <div class="checks" id="flags"></div>
+      </fieldset>
+
+      <label class="check doom full" for="x">
+        <input type="checkbox" id="x">
+        <span><b>AI will kill us all</b><small>Sets DRR to $0. Nothing else changes.</small></span>
+      </label>
+
+      <div class="buttons full">
+        <button class="primary" id="download" type="button">Download PNG</button>
+        <button id="copy-link" type="button">Copy link</button>
+        <button id="copy-post" type="button">Copy the post</button>
+        <button id="reset" type="button">Start over</button>
+      </div>
+    </form>
+    <p class="fine">Everything happens in your browser. The answers live in the link after the #, so the link is the card. Send it to anyone and they get the same number.</p>
+
+    <div class="post">
+      <h3>Your post</h3>
+      <pre id="post"></pre>
+    </div>
+  </section>
+
+  <section class="block" id="how" aria-labelledby="how-h">
+    <h2 id="how-h">How DRR works</h2>
+    <p class="lede">Every era of software gets the metric it deserves.</p>
+    <div class="steps">
+      <div class="step"><span class="tag">2015 TO 2023</span><h3>MRR</h3><p>Monthly Recurring Revenue. One month of money. Honest, small and a bit embarrassing on a slide.</p></div>
+      <div class="step"><span class="tag">NOW</span><h3>ARR</h3><p>Annual Recurring Revenue. MRR times twelve. Same money, bigger number, nobody asks which month you multiplied.</p></div>
+      <div class="step now"><span class="tag">THE FUTURE</span><h3>DRR</h3><p>Decennial Recurring Revenue. Ten years of ARR, compounding. Most of it hasn't happened yet, which is what makes it so big.</p></div>
+    </div>
+
+    <h3>The model</h3>
+    <div class="formula">
+      MRR = (40 + vibes<sup>1.6</sup>) / 120 × (1 + agentic / 7) × 2<sup>(8 − hours slept)</sup> × (1 + pivots / 2) × checkboxes<br>
+      ARR = MRR × 12<br>
+      growth = 2 + agentic / 50 + pivots / 4 + vibes / 100 (+ 0.5 for a gradient logo), up to 12x<br>
+      DRR = ARR × (1 + growth + growth<sup>2</sup> + … + growth<sup>9</sup>)<br>
+      DRR = $0 if AI will kill us all
+    </div>
+    <table class="levers">
+      <thead><tr><th>Checkbox</th><th>MRR</th><th>Why</th></tr></thead>
+      <tbody id="levers"></tbody>
+    </table>
+    <p class="fine">Actual revenue is collected for completeness and then ignored. The model has never needed it.</p>
+  </section>
+
+  <section class="block" aria-labelledby="q-h">
+    <h2 id="q-h">Founders on DRR</h2>
+    <div class="quotes">
+      <figure><blockquote>"We were embarrassed by our ARR. Then we multiplied it by ten and stopped being embarrassed."</blockquote><figcaption>Priya N., founder, Waitlist for a Waitlist</figcaption></figure>
+      <figure><blockquote>"The board asked for a five year plan. We gave them ten. They stopped asking."</blockquote><figcaption>Dale M., CEO, Uber for Pivots</figcaption></figure>
+      <figure><blockquote>"I ticked the AI box by accident and our DRR went to zero. Honestly it was a relief."</blockquote><figcaption>Sam O., Alignment Is Hard LLC</figcaption></figure>
+    </div>
+    <p class="fine">Made-up quotes from made-up founders at made-up companies.</p>
+  </section>
+
+  <section class="block faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <details><summary>Is DRR a real metric?</summary><p>It is now. You're looking at it.</p></details>
+    <details><summary>Why ten years?</summary><p>It's the longest stretch that still sounds like a plan. A century sounds like a religion.</p></details>
+    <details><summary>Why does less sleep mean more DRR?</summary><p>Every successful founder we made up sleeps four hours. The model is trained on them.</p></details>
+    <details><summary>What does the "AI will kill us all" box do?</summary><p>It sets DRR to $0. Ten years of revenue assumes there are ten years. MRR and ARR stay on the card, so you can see what you would have had.</p></details>
+    <details><summary>Can I put this in my deck?</summary><p>The MADE UP stamp and the yellow strip are part of the PNG. You can crop one of them. The axis still says $$$$.</p></details>
+    <details><summary>Where does my data go?</summary><p>Nowhere. There's no server, no form that submits and no analytics. Your answers live in the link, and the link lives wherever you paste it.</p></details>
+  </section>
+</main>
+
+<footer id="foot"></footer>
+
+<script src="assets/site.js"></script>
+<script src="assets/drr.js"></script>
+<script>
+(() => {
+  const { FLAGS, DEFAULTS, parse, serialize, compute, money, post, draw, vibeWord } = window.DRR;
+  const $ = (id) => document.getElementById(id);
+  const canvas = $('card');
+  const ctx = canvas.getContext('2d');
+
+  // The checkboxes and the lever table both come from FLAGS, so they can't drift.
+  $('flags').innerHTML = FLAGS.map((f) =>
+    `<label class="check"><input type="checkbox" data-flag="${f.k}"><span>${f.label}</span></label>`).join('');
+  $('levers').innerHTML = FLAGS.map((f) =>
+    `<tr><td>${f.label}</td><td>×&nbsp;${f.mult}</td><td>${f.why}</td></tr>`).join('');
+  const flagEls = [...document.querySelectorAll('[data-flag]')];
+
+  let state = parse(location.hash);
+
+  function fill() {
+    $('n').value = state.n;
+    $('r').value = state.r;
+    $('v').value = state.v;
+    $('h').value = state.h;
+    $('a').value = state.a;
+    $('p').value = state.p;
+    $('x').checked = state.x;
+    flagEls.forEach((el) => { el.checked = state.f.includes(el.dataset.flag); });
+  }
+
+  function read() {
+    return {
+      n: $('n').value, r: $('r').value, v: $('v').value, h: $('h').value, a: $('a').value, p: $('p').value,
+      x: $('x').checked,
+      f: flagEls.filter((el) => el.checked).map((el) => el.dataset.flag),
+    };
+  }
+
+  function render() {
+    const m = compute(state);
+    state = m.state;
+    $('v-out').textContent = `${state.v}, ${vibeWord(state.v)}`;
+    $('h-out').textContent = `${state.h}`;
+    draw(ctx, m, window.SITE);
+    $('post').textContent = post(m);
+    canvas.setAttribute('aria-label', m.doom
+      ? `A made-up DRR card for ${m.name}: DRR $0, because AI will kill us all. Stamped MADE UP.`
+      : `A made-up DRR card for ${m.name}: ${money(m.drr)} DRR from ${money(m.mrr)} MRR. Stamped MADE UP.`);
+    const next = '#' + serialize(state);
+    if (location.hash !== next) history.replaceState(null, '', next);
+  }
+
+  $('form').addEventListener('input', () => { state = parse(serialize(read())); render(); });
+  // Number boxes clamp on blur, so a typed 9000 pivots shows as the 30 it counts as.
+  $('form').addEventListener('change', () => fill());
+  window.addEventListener('hashchange', () => { state = parse(location.hash); fill(); render(); });
+
+  $('reset').addEventListener('click', () => { state = parse(serialize(DEFAULTS)); fill(); render(); });
+
+  $('download').addEventListener('click', () => {
+    const m = compute(state);
+    const slug = m.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'drr';
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `drr-${slug}.png`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }, 'image/png');
+  });
+
+  async function copy(btn, text) {
+    const before = btn.textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = 'Copied';
+    } catch (err) {
+      console.warn('Clipboard write failed:', err);
+      btn.textContent = "Couldn't copy, select it by hand";
+    }
+    setTimeout(() => { btn.textContent = before; }, 1800);
+  }
+  $('copy-link').addEventListener('click', (e) => copy(e.currentTarget, location.href));
+  $('copy-post').addEventListener('click', (e) => copy(e.currentTarget, $('post').textContent + '\n\n' + location.href));
+
+  fill();
+  render();
+})();
+</script>
+</body>
+</html>

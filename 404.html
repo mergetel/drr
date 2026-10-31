@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not found · DRR</title>
+<script>
+  // GitHub Pages serves this page at whatever path was missing, so relative
+  // links can't work. A project site lives under /<repo>/, a custom domain at /.
+  window.ROOT = location.hostname.endsWith('.github.io') ? '/' + location.pathname.split('/')[1] + '/' : '/';
+  document.write('<link rel="stylesheet" href="' + ROOT + 'assets/site.css">');
+  document.write('<link rel="icon" href="' + ROOT + 'assets/favicon.svg" type="image/svg+xml">');
+</script>
+</head>
+<body>
+<header id="nav"></header>
+<main class="wrap" style="padding:80px 16px 40px">
+  <p class="eyebrow">404</p>
+  <h1>This page <span class="grad">churned.</span></h1>
+  <p class="lede">It was here last quarter with a DRR in the billions. Then somebody ticked the box.</p>
+  <a class="btn btn-primary" id="home" href="/">Back to the generator</a>
+</main>
+<footer id="foot"></footer>
+<script>
+  document.getElementById('home').href = ROOT;
+  document.write('<script src="' + ROOT + 'assets/site.js"><\/script>');
+</script>
+</body>
+</html>

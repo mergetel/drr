@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The DRR leaderboard · Decennial Recurring Revenue</title>
+<meta name="description" content="Twelve made-up companies ranked by a number none of them has. Two ticked the box.">
+<meta property="og:title" content="The DRR leaderboard">
+<meta property="og:description" content="Twelve made-up companies ranked by a number none of them has.">
+<meta property="og:image" content="https://mergetel.github.io/drr/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header id="nav"></header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">DRR LEADERBOARD</p>
+    <h1>Ranked by a number <span class="grad">none of them has.</span></h1>
+    <p class="lede">Twelve companies, ten years of revenue each, all of it in the future. Every row opens that company's card with the same inputs, so you can check the math. The math checks out. That's the problem with math.</p>
+  </section>
+
+  <div class="board" aria-labelledby="board-h">
+    <h2 id="board-h" class="strip">MADE UP. Every company, founder and number on this page is fictional.</h2>
+    <ol id="rows"></ol>
+    <p class="strip">Combined DRR: <span id="total"></span>. Combined actual revenue: <span id="actual"></span>.</p>
+  </div>
+  <p class="fine">The two companies at the bottom would be near the top. They ticked "AI will kill us all", and the model takes them at their word.</p>
+</main>
+
+<footer id="foot"></footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/drr.js"></script>
+<script>
+(() => {
+  const { COMPANIES, compute, serialize, short, money } = window.DRR;
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const rows = COMPANIES.map((c) => ({ c, m: compute(c) })).sort((a, b) => b.m.drr - a.m.drr || b.m.mrr - a.m.mrr);
+  document.getElementById('rows').innerHTML = rows.map(({ c, m }, i) => `
+    <li${m.doom ? ' class="doomed"' : ''}>
+      <span class="rank">${i + 1}</span>
+      <span class="who"><b>${esc(m.name)}</b><span>${esc(c.note)}</span></span>
+      <span class="num" title="${esc(money(m.drr))}">${esc(short(m.drr))}<a href="${window.BASE}#${serialize(c)}">See the card</a></span>
+    </li>`).join('');
+  document.getElementById('total').textContent = short(rows.reduce((t, r) => t + r.m.drr, 0));
+  document.getElementById('actual').textContent = short(COMPANIES.reduce((t, c) => t + (c.r || 0), 0));
+})();
+</script>
+</body>
+</html>
